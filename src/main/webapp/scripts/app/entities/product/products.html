@@ -1,0 +1,126 @@
+<div>
+    <h2 translate="productsApp.product.home.title">Products</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="product.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="productsApp.product.home.createLabel">Create a new Product</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a Product</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteProductConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(product.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="productsApp.product.delete.question" translate-values="{id: '{{product.id}}'}">Are you sure you want to delete this Product?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <span translate="global.field.id">ID</span>
+                        <i ng-show="sort.attribute !== 'id'" ng-click="sortBy('id','DESC')" class="glyphicon glyphicon-sort"></i>
+                        <i ng-show="sort.attribute === 'id' && sort.direction === 'ASC'" ng-click="sortBy('id','DESC')" class="glyphicon glyphicon-sort-by-attributes"></i>
+                        <i ng-show="sort.attribute === 'id' && sort.direction === 'DESC'" ng-click="sortBy('id','ASC')" class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                    </th>
+                    <th>
+                        <span translate="productsApp.product.name">Name</span>
+                        <i ng-show="sort.attribute !== 'name'" ng-click="sortBy('name','DESC')" class="glyphicon glyphicon-sort"></i>
+                        <i ng-show="sort.attribute === 'name' && sort.direction === 'ASC'" ng-click="sortBy('name','DESC')" class="glyphicon glyphicon-sort-by-attributes"></i>
+                        <i ng-show="sort.attribute === 'name' && sort.direction === 'DESC'" ng-click="sortBy('name','ASC')" class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                    </th>
+                    <th>
+                        <span translate="productsApp.product.description">Description</span>
+                        <i ng-show="sort.attribute !== 'description'" ng-click="sortBy('description','DESC')" class="glyphicon glyphicon-sort"></i>
+                        <i ng-show="sort.attribute === 'description' && sort.direction === 'ASC'" ng-click="sortBy('description','DESC')" class="glyphicon glyphicon-sort-by-attributes"></i>
+                        <i ng-show="sort.attribute === 'description' && sort.direction === 'DESC'" ng-click="sortBy('description','ASC')" class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                    </th>
+                    <th>
+                        <span translate="productsApp.product.price">Price</span>
+                        <i ng-show="sort.attribute !== 'price'" ng-click="sortBy('price','DESC')" class="glyphicon glyphicon-sort"></i>
+                        <i ng-show="sort.attribute === 'price' && sort.direction === 'ASC'" ng-click="sortBy('price','DESC')" class="glyphicon glyphicon-sort-by-attributes"></i>
+                        <i ng-show="sort.attribute === 'price' && sort.direction === 'DESC'" ng-click="sortBy('price','ASC')" class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                    </th>
+                    <th>
+                        <span translate="productsApp.product.available">Available</span>
+                        <i ng-show="sort.attribute !== 'available'" ng-click="sortBy('available','DESC')" class="glyphicon glyphicon-sort"></i>
+                        <i ng-show="sort.attribute === 'available' && sort.direction === 'ASC'" ng-click="sortBy('available','DESC')" class="glyphicon glyphicon-sort-by-attributes"></i>
+                        <i ng-show="sort.attribute === 'available' && sort.direction === 'DESC'" ng-click="sortBy('available','ASC')" class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in products track by product.id">
+                    <td><a ui-sref="product.detail({id:product.id})">{{product.id}}</a></td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.description}}</td>
+                    <td>{{product.price}}</td>
+                    <td>{{product.available}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="product.detail({id:product.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="product.edit({id:product.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(product.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

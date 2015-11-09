@@ -1,0 +1,21 @@
+{
+    "productsApp": {
+        "category" : {
+            "home": {
+                "title": "Categories",
+                "createLabel": "Créer un nouveau Category",
+                "createOrEditLabel": "Créer ou éditer un Category"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Category {{ id }} ?"
+            },
+            "detail": {
+                "title": "Category"
+            },
+            "name": "Name",
+            "parent_category": "Parent Category",
+            "product": "Product"
+        }
+    }
+}
+

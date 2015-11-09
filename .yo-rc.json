@@ -1,0 +1,24 @@
+{
+  "generator-jhipster": {
+    "baseName": "products",
+    "packageName": "com.pedroxs.products",
+    "packageFolder": "com/pedroxs/products",
+    "authenticationType": "session",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "elasticsearch",
+    "useSass": false,
+    "buildTool": "maven",
+    "frontendBuilder": "gulp",
+    "enableTranslation": true,
+    "enableSocialSignIn": false,
+    "rememberMeKey": "68f568761b262289d8077380ae61782f85c4d760",
+    "testFrameworks": [
+      "gatling"
+    ]
+  }
+}
